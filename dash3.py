@@ -5,8 +5,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import plost
-import datetime as dt
-from dateutil.relativedelta import relativedelta
+import seaborn as sns
+
 
 
 st.set_page_config(layout='wide', initial_sidebar_state='expanded',page_title='Share Price Dashboard')
@@ -45,10 +45,11 @@ if selected2 =="ANALYSE" :
     #row2
     c1, c2 = st.columns((5,4))
     with c1 :
-    
-        st.markdown("## DATASET")
-        df = pd.read_csv("stockprice5.csv")
-        st.write(df)
+        st.markdown("## Heatmap")
+        stocks = pd.read_csv('stockprice5.csv',parse_dates=['Date'])
+        fig, ax = plt.subplots()
+        sns.heatmap(stocks.corr() ,ax=ax,annot =True)
+        st.write(fig)
     with c2:
         sto = pd.read_csv("Sto.csv")
     
@@ -109,3 +110,11 @@ if selected2 == "SHARE PRICE" :
     stocks = pd.read_csv('stockprice5.csv',parse_dates=['Date'])
     st.header("Bar Chart")
     st.bar_chart(stocks ,x = 'Date' , y = plot_data ,height = plot_height) 
+    
+    st.sidebar.markdown('''
+    ---
+    Github link
+    Created  by 😇[Aakash Shedge](https://github.com/AAKASHSHEDGE/dash33).
+    ''')
+    
+    
